@@ -1,0 +1,5 @@
+[$HOME/.config/vcsh/repo.d/author.git]
+checkout = vcsh clone keep:git/author.git author
+#update = vcsh author pull
+#push = vcsh author push
+#status = vcsh author status
