@@ -1,2 +1,5 @@
 [$HOME/.config/vcsh/repo.d/bin.git]
 checkout = vcsh clone keep:git/bin.git bin
+update = vcsh bin pull
+push = vcsh bin push
+status = vcsh bin status
