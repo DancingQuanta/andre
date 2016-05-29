@@ -2,7 +2,7 @@
 !/.config
 /.config/*
 !/.config/mr
-!/.config/mr/**
+!/.config/mr/available.d
 !/.mrconfig
 !/.gitignore.d
 /.gitignore.d/*
