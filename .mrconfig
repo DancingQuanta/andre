@@ -1,5 +1,6 @@
 [DEFAULT]
 git_gc = git gc "$@"
+s = git status -s
 jobs = 5
 
 include = cat ~/.config/mr/config.d/*
