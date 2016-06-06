@@ -1,0 +1,5 @@
+[$HOME/.config/vcsh/repo.d/tmux.git]
+checkout = vcsh clone keep:git/tmux.git tmux
+update = vcsh tmux pull
+push = vcsh tmux push
+status = vcsh tmux status

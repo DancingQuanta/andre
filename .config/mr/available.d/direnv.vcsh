@@ -1,0 +1,5 @@
+[$HOME/.config/vcsh/repo.d/direnv.git]
+checkout = vcsh clone keep:git/direnv.git direnv
+update = vcsh direnv pull
+push = vcsh direnv push
+status = vcsh direnv status
