@@ -1,0 +1,5 @@
+[$HOME/.config/vcsh/repo.d/zsh.git]
+checkout = vcsh clone keep:git/zsh.git zsh
+update = vcsh zsh pull
+push = vcsh zsh push
+status = vcsh zsh status
