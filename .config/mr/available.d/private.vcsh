@@ -1,0 +1,6 @@
+[$HOME/.config/vcsh/repo.d/private.git]
+checkout = vcsh clone keep:git/private.git private
+update = vcsh private pull
+push = vcsh private push
+status = vcsh private status
+
