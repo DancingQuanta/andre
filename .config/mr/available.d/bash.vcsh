@@ -1,5 +1,5 @@
 [$HOME/.config/vcsh/repo.d/bash.git]
-checkout = vcsh clone keep:git/bash.git bash
+checkout = vcsh clone git@github.com:DancingQuanta/bash.git bash
 update = vcsh bash pull
 push = vcsh bash push
 status = vcsh bash status

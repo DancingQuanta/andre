@@ -1,5 +1,5 @@
 [$HOME/.config/vcsh/repo.d/common-shell.git]
-checkout = vcsh clone keep:git/common-shell.git common-shell
+checkout = vcsh clone git@github.com:DancingQuanta/common-shell.git common-shell
 update = vcsh common-shell pull
 push = vcsh common-shell push
 status = vcsh common-shell status
