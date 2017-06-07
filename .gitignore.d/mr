@@ -4,7 +4,6 @@
 !/.config/mr/available.d/
 !/.config/mr/available.d/*
 !/.config/mr/config.d/
-!/.config/mr/config.d/*
 !/.mrconfig
 !/.gitignore.d
 !/.gitignore.d/mr

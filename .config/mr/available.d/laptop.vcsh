@@ -1,0 +1,5 @@
+[$HOME/.config/vcsh/repo.d/laptop.git]
+checkout = vcsh clone keep:git/laptop.git laptop
+update = vcsh laptop pull
+push = vcsh laptop push
+status = vcsh laptop status
