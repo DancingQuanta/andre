@@ -1,5 +1,3 @@
 [.password-store]
-checkout = pass git clone keep:git/pass.git
-update = pass git pull
-push = pass git push
-status = pass git status
+checkout = clone keep:git/pass.git
+update = pull
