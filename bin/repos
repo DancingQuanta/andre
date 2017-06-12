@@ -55,6 +55,7 @@ _repos_reg() {
   # Right now, we only support git directories
   if git rev-parse --is-inside-work-tree &> /dev/null; then
     REMOTE=$(git config --get remote.origin.url)
+    LOCAL=$(git rev-parse --show-toplevel)
     if [[ -z "$REMOTE" ]]; then
       echo "This repo does not have a remote called origin, please add origin as a remote"
       exit 1
@@ -63,9 +64,9 @@ _repos_reg() {
     exit 1
   fi
 
-  # Store the current directory and initialize iterator
-  local DIRECTORY_NAME=$(basename $CURRENT_DIR)
-  local ITERATOR=$CURRENT_DIR
+  # Store the name of root directory of repo and initialize iterator
+  DIRECTORY_NAME=$(basename $LOCAL)
+  ITERATOR=$LOCAL
 
   # Find a .mrconfig file by climbing up the tree
   while [[ $ITERATOR != '/' ]]; do
@@ -85,7 +86,7 @@ _repos_reg() {
     CONFIG=$ITERATOR/.config/mr/available.d/"$(basename "$REMOTE")"
     LINKED_CONFIG=$ITERATOR/.config/mr/config.d/"$(basename "$REMOTE")"
     echo ""
-    echo "[$CURRENT_DIR]" > $CONFIG
+    echo "[${LOCAL/#$HOME/'$HOME'}]" > $CONFIG
     echo "checkout = git clone '$REMOTE' '$DIRECTORY_NAME'" >> $CONFIG
     echo "adding $DIRECTORY_NAME to $CONFIG"
     _repos_enable "$(basename "$REMOTE")" && echo "Linking $CONFIG to $LINKED_CONFIG"
