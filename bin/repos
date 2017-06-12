@@ -1,0 +1,109 @@
+#!/bin/sh
+# Adapted from https://github.com/srijanshetty/cli-goodies/blob/master/functions/repos
+
+CURRENT_DIR=${PWD}
+
+_repos_help() {
+cat << _EOH_
+
+USAGE: repos <command> [arguments]
+
+COMMAND:
+
+--available       list available configurations
+--check           list all repos not in mrconfig
+--disable         diable a configuration
+--enable          enable a configuration
+--list            list current configurations
+--only            only enable one configuration
+--reg             register the current folder to mr
+
+_EOH_
+  }
+
+_file_check() {
+  [[ -e ~/.config/mr/available.d/"$1" ]]
+}
+
+_repos_list() {
+  ls ~/.config/mr/config.d
+}
+
+_repos_available() {
+  ls ~/.config/mr/available.d
+}
+
+_repos_enable() {
+  _file_check "$1" && cd ~/.config/mr/config.d/ && ln -s "../available.d/$1" .
+}
+
+_repos_disable() {
+  cd ~/.config/mr/config.d/ && rm -f "$1"
+}
+
+_repos_only() {
+  _file_check "$1" && /bin/rm -f ~/.config/mr/config.d/* && _repos_enable "$1"
+}
+
+_repos_check() {
+  for file in ./*; do
+      < .mrconfig grep "$file" &>/dev/null || echo "$file";
+  done
+}
+
+_repos_reg() {
+  # Right now, we only support git directories
+  if git rev-parse --is-inside-work-tree &> /dev/null; then
+    REMOTE=$(git config --get remote.origin.url)
+    if [[ -z "$REMOTE" ]]; then
+      echo "This repo does not have a remote called origin, please add origin as a remote"
+      exit 1
+    fi
+  else
+    exit 1
+  fi
+
+  # Store the current directory and initialize iterator
+  local DIRECTORY_NAME=$(basename $CURRENT_DIR)
+  local ITERATOR=$CURRENT_DIR
+
+  # Find a .mrconfig file by climbing up the tree
+  while [[ $ITERATOR != '/' ]]; do
+      if [[ -e .mrconfig ]]; then
+          break
+      else
+          cd ..
+          ITERATOR=$PWD
+      fi
+  done
+
+  # Move back to original directory
+  cd $CURRENT_DIR
+
+  # Create a .mrconfig-like file for this repo in available.d with following statements
+  if [[ $ITERATOR != '/' ]]; then
+    CONFIG=$ITERATOR/.config/mr/available.d/"$(basename "$REMOTE")"
+    LINKED_CONFIG=$ITERATOR/.config/mr/config.d/"$(basename "$REMOTE")"
+    echo ""
+    echo "[$CURRENT_DIR]" > $CONFIG
+    echo "checkout = git clone '$REMOTE' '$DIRECTORY_NAME'" >> $CONFIG
+    echo "adding $DIRECTORY_NAME to $CONFIG"
+    _repos_enable "$(basename "$REMOTE")" && echo "Linking $CONFIG to $LINKED_CONFIG"
+  else
+      mr reg
+  fi
+}
+
+case "$1" in
+  ls | list)          _repos_list;;
+  e | enable)         _repos_enable "$2";;
+  d | disable)        _repos_disable "$2";;
+  r | reg)            _repos_reg;;
+  a | available)      _repos_available;;
+  c | check)          _repos_check;;
+  o | only)           _repos_only "$2";;
+  *)                  _repos_help;;
+esac
+
+# Jump back to the directory from where we started
+cd "$CURRENT_DIR"

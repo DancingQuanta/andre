@@ -7,3 +7,5 @@
 !/.mrconfig
 !/.gitignore.d
 !/.gitignore.d/mr
+!/bin/
+!/bin/repos
