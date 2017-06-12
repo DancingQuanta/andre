@@ -1,0 +1,2 @@
+[$HOME/projects/windsampler]
+checkout = git clone 'ssh://keep:/~/git/windsampler.git' 'windsampler'
