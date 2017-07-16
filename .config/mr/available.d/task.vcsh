@@ -1,11 +1,11 @@
 [$HOME/.config/vcsh/repo.d/task.git]
-checkout = vcsh clone git@github.com:DancingQuanta/task.git task
+checkout = vcsh clone https://github.com/DancingQuanta/task.git task
 update = vcsh task pull
 push = vcsh task push
 status = vcsh task status
 
 [$HOME/repos/taskopen]
-checkout = git clone 'git://github.com/ValiValpas/taskopen.git' 'taskopen'
+checkout = git clone 'https://github.com/ValiValpas/taskopen.git' 'taskopen'
 fixups =
   make PREFIX=usr
   make PREFIX=usr install
