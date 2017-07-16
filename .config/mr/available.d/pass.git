@@ -3,8 +3,8 @@ checkout = git clone 'ssh://keep:/~/git/.password-store.git' '.password-store'
 
 [$HOME/repos/pass-extension-wclip]
 checkout = git clone 'git://github.com/palortoff/pass-extension-wclip.git' 'pass-extension-wclip'
+skip = [[ $(uname -s) == "CYGWIN*" ]]
 fixups = 
-  if [[ $(uname -s) == CYGWIN*|MINGW32*|MSYS* ]]; then
-    mkdir -p "$HOME/.password-store/.extensions"
-    cp src/wclip.bash "$HOME/.password-store/.extensions"
-  fi
+  mkdir -p "$HOME/.password-store/.extensions"
+  cp src/wclip.bash "$HOME/.password-store/.extensions"
+push = :
