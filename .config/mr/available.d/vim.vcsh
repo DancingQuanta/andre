@@ -1,5 +1,9 @@
 [$HOME/.config/vcsh/repo.d/vim.git]
-checkout = vcsh clone https://github.com/DancingQuanta/vim.git vim
+checkout = 
+  vcsh clone https://github.com/DancingQuanta/vim.git vim
+  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+  sh ./installer.sh ~/.vim/dein
+  rm -f installer.sh
 update = vcsh vim pull
 push = vcsh vim push
 status = vcsh vim status
